@@ -3,6 +3,7 @@ package com.example.greetingaapapplication.controller;
 
 import com.example.greetingaapapplication.model.Greeting;
 import com.example.greetingaapapplication.service.GreetingService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,15 @@ public class GreetingController {
     @GetMapping("/getMessage")
     public ResponseEntity<String> getMessage() {
         return new ResponseEntity<String>(greetingService.getMessage(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getGreetingMessage")
+    public ResponseEntity<String> getGreetingMessage(@RequestParam(value = "firstName", defaultValue = "World") String firstName, @RequestParam(value = "lastName", defaultValue = "") String lastName) {
+        return new ResponseEntity<String>(greetingService.getGreetingMessage(firstName, lastName), HttpStatus.OK);
+    }
+
+    @PostMapping("/post")
+    public ResponseEntity<String> getGreeting(@RequestBody User user) {
+        return new ResponseEntity<String>(greetingService.postMessage(user.getName(), user.getName()), HttpStatus.OK);
     }
 }
