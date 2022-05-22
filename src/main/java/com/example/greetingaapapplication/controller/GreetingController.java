@@ -20,17 +20,17 @@ public class GreetingController {
 
     @GetMapping("/getGreeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+        return new Greeting(String.format(template, name));
     }
 
     @PostMapping("/postGreeting")
     public Greeting sayHello(@RequestBody Greeting greeting) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, greeting.getContent()));
+        return new Greeting(String.format(template, greeting.getContent()));
     }
 
     @PutMapping("/putMapping/{counter}")
     public Greeting sayHello(@PathVariable long counter, @RequestParam(value = "content") String content) {
-        return new Greeting(counter, String.format(template, content));
+        return new Greeting(String.format(template, content));
     }
 
     @GetMapping("/getMessage")
@@ -45,6 +45,11 @@ public class GreetingController {
 
     @PostMapping("/post")
     public ResponseEntity<String> getGreeting(@RequestBody User user) {
-        return new ResponseEntity<String>(greetingService.postMessage(user.getName(), user.getName()), HttpStatus.OK);
+        return new ResponseEntity<String>(greetingService.postMessage(user), HttpStatus.OK);
+    }
+
+    @PostMapping("/saveGreeting")
+    public ResponseEntity<Greeting> saveGreeting(@RequestBody Greeting greeting) {
+        return new ResponseEntity<Greeting>(greetingService.saveMessage(greeting), HttpStatus.OK);
     }
 }
