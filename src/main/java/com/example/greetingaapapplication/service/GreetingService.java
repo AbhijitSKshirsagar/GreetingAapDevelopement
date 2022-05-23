@@ -2,7 +2,8 @@ package com.example.greetingaapapplication.service;
 
 import com.example.greetingaapapplication.model.Greeting;
 import com.example.greetingaapapplication.repository.GreetingAppRepository;
-import org.apache.catalina.User;
+//import org.apache.catalina.User;
+import com.example.greetingaapapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class GreetingService {
     }
 
     public String postMessage(User user) {
-        return "Hello " + user.getName() + "" + user.getName();
+        return "Hello " + user.getfirstName() + "" + user.getlastName();
     }
 
     public Greeting saveMessage(Greeting greeting) {
@@ -46,5 +47,10 @@ public class GreetingService {
         Greeting newGreeting = new Greeting(id, String.format(template, content));
         repository.save(newGreeting);
         return newGreeting;
+    }
+
+    public String deleteDataById(Integer id) {
+        repository.deleteById(id);
+        return "Greeting message having id " + id + ", got deleted";
     }
 }

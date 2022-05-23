@@ -3,7 +3,8 @@ package com.example.greetingaapapplication.controller;
 
 import com.example.greetingaapapplication.model.Greeting;
 import com.example.greetingaapapplication.service.GreetingService;
-import org.apache.catalina.User;
+
+import com.example.greetingaapapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,5 +69,10 @@ public class GreetingController {
     @PutMapping("/editGreetingById/{id}")
     public ResponseEntity<Greeting> editGreeting(@RequestParam String content, @PathVariable Integer id) {
         return new ResponseEntity<Greeting>(greetingService.editData(id, content), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteGreetingById/{id}")
+    public ResponseEntity<String> deleteGreetingById(@PathVariable Integer id) {
+        return new ResponseEntity<String>(greetingService.deleteDataById(id), HttpStatus.OK);
     }
 }
